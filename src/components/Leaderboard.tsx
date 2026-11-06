@@ -27,6 +27,7 @@ export function Leaderboard() {
       setLoading(false);
     })();
 
+    // Refresh every 15 seconds
     const interval = setInterval(async () => {
       const { data } = await supabase
         .from('leaderboard')
@@ -36,7 +37,10 @@ export function Leaderboard() {
       if (!cancelled && data) setEntries(data as LeaderboardEntry[]);
     }, 15000);
 
-    return () => { cancelled = true; clearInterval(interval); };
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
   }, []);
 
   function formatNum(n: number): string {
@@ -64,21 +68,40 @@ export function Leaderboard() {
             const isMe = profile?.user_id === entry.user_id;
             const rank = i + 1;
             return (
-              <div key={entry.user_id} className={`flex items-center gap-3 px-5 py-3 border-b border-gray-50 transition-colors ${isMe ? 'bg-amber-50' : 'hover:bg-gray-50'}`}>
+              <div
+                key={entry.user_id}
+                className={`flex items-center gap-3 px-5 py-3 border-b border-gray-50 transition-colors ${
+                  isMe ? 'bg-amber-50' : 'hover:bg-gray-50'
+                }`}
+              >
                 <div className="w-8 flex justify-center">
-                  {rank === 1 ? <Crown className="w-5 h-5 text-yellow-500" /> :
-                   rank === 2 ? <Medal className="w-5 h-5 text-gray-400" /> :
-                   rank === 3 ? <Medal className="w-5 h-5 text-amber-700" /> :
-                   <span className="text-sm font-bold text-gray-400">{rank}</span>}
+                  {rank === 1 ? (
+                    <Crown className="w-5 h-5 text-yellow-500" />
+                  ) : rank === 2 ? (
+                    <Medal className="w-5 h-5 text-gray-400" />
+                  ) : rank === 3 ? (
+                    <Medal className="w-5 h-5 text-amber-700" />
+                  ) : (
+                    <span className="text-sm font-bold text-gray-400">{rank}</span>
+                  )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className={`font-semibold text-sm truncate ${isMe ? 'text-orange-600' : 'text-gray-700'}`}>
-                    {entry.username}{isMe && <span className="ml-1.5 text-xs font-normal">(you)</span>}
+                  <p
+                    className={`font-semibold text-sm truncate ${
+                      isMe ? 'text-orange-600' : 'text-gray-700'
+                    }`}
+                  >
+                    {entry.username}
+                    {isMe && <span className="ml-1.5 text-xs font-normal">(you)</span>}
                   </p>
-                  <p className="text-xs text-gray-400">{formatNum(entry.total_earned)} total earned</p>
+                  <p className="text-xs text-gray-400">
+                    {formatNum(entry.total_earned)} total earned
+                  </p>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm font-bold text-gray-700">{formatNum(entry.score)}</p>
+                  <p className="text-sm font-bold text-gray-700">
+                    {formatNum(entry.score)}
+                  </p>
                   <p className="text-xs text-gray-400">cookies</p>
                 </div>
               </div>

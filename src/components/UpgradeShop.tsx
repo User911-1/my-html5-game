@@ -8,7 +8,16 @@ import {
 import type { LucideIcon } from 'lucide-react';
 
 const ICON_MAP: Record<string, LucideIcon> = {
-  MousePointerClick, Hand, Gem, Zap, Cookie, Wheat, Factory, Pickaxe, FlaskConical, CircleDot,
+  MousePointerClick,
+  Hand,
+  Gem,
+  Zap,
+  Cookie,
+  Wheat,
+  Factory,
+  Pickaxe,
+  FlaskConical,
+  CircleDot,
 };
 
 export function UpgradeShop() {
@@ -35,21 +44,31 @@ export function UpgradeShop() {
         onClick={() => buyUpgrade(def)}
         disabled={!affordable || maxed}
         className={`w-full flex items-center gap-3 p-3.5 rounded-xl border transition-all text-left ${
-          maxed ? 'bg-gray-50 border-gray-100 cursor-default' :
-          affordable ? 'bg-white border-orange-200 hover:border-orange-400 hover:shadow-md active:scale-[0.98] cursor-pointer' :
-          'bg-gray-50 border-gray-100 opacity-70 cursor-not-allowed'
+          maxed
+            ? 'bg-gray-50 border-gray-100 cursor-default'
+            : affordable
+              ? 'bg-white border-orange-200 hover:border-orange-400 hover:shadow-md active:scale-[0.98] cursor-pointer'
+              : 'bg-gray-50 border-gray-100 opacity-70 cursor-not-allowed'
         }`}
       >
-        <div className={`flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center ${
-          affordable ? 'bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600' : 'bg-gray-100 text-gray-400'
-        }`}>
-          <Icon style={{ width: 22, height: 22 }} />
+        <div
+          className={`flex-shrink-0 w-11 h-11 rounded-lg flex items-center justify-center ${
+            affordable
+              ? 'bg-gradient-to-br from-amber-100 to-orange-100 text-orange-600'
+              : 'bg-gray-100 text-gray-400'
+          }`}
+        >
+          <Icon className="w-5.5 h-5.5" style={{ width: 22, height: 22 }} />
         </div>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className="font-semibold text-sm text-gray-800">{def.name}</span>
-            {level > 0 && <span className="text-xs font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">Lv {level}</span>}
+            {level > 0 && (
+              <span className="text-xs font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">
+                Lv {level}
+              </span>
+            )}
           </div>
           <p className="text-xs text-gray-500 truncate">{def.description}</p>
           <p className="text-xs font-medium text-orange-600 mt-0.5">{def.effectLabel}</p>
@@ -57,11 +76,19 @@ export function UpgradeShop() {
 
         <div className="flex-shrink-0 text-right">
           {maxed ? (
-            <div className="flex items-center gap-1 text-gray-400"><Check className="w-4 h-4" /><span className="text-xs font-semibold">MAX</span></div>
+            <div className="flex items-center gap-1 text-gray-400">
+              <Check className="w-4 h-4" />
+              <span className="text-xs font-semibold">MAX</span>
+            </div>
           ) : affordable ? (
-            <div className="text-sm font-bold text-gray-700">{formatNum(cost)}</div>
+            <div className="text-sm font-bold text-gray-700">
+              {formatNum(cost)}
+            </div>
           ) : (
-            <div className="flex items-center gap-1 text-gray-400"><Lock className="w-3.5 h-3.5" /><span className="text-xs font-semibold">{formatNum(cost)}</span></div>
+            <div className="flex items-center gap-1 text-gray-400">
+              <Lock className="w-3.5 h-3.5" />
+              <span className="text-xs font-semibold">{formatNum(cost)}</span>
+            </div>
           )}
         </div>
       </button>
@@ -80,13 +107,21 @@ export function UpgradeShop() {
 
       <div className="p-4 space-y-5 max-h-[500px] overflow-y-auto">
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5 px-1">Click Upgrades</h3>
-          <div className="space-y-2">{clickUpgrades.map(renderUpgrade)}</div>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5 px-1">
+            Click Upgrades
+          </h3>
+          <div className="space-y-2">
+            {clickUpgrades.map(renderUpgrade)}
+          </div>
         </div>
 
         <div>
-          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5 px-1">Auto Producers</h3>
-          <div className="space-y-2">{autoUpgrades.map(renderUpgrade)}</div>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5 px-1">
+            Auto Producers
+          </h3>
+          <div className="space-y-2">
+            {autoUpgrades.map(renderUpgrade)}
+          </div>
         </div>
       </div>
     </div>

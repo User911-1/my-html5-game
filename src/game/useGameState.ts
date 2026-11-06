@@ -48,10 +48,17 @@ export function useGameState(userId: string | null) {
     dataRef.current = data;
   }, [data]);
 
+  // Load from DB
   useEffect(() => {
     if (!userId) {
       setLoaded(false);
-      setData({ score: 0, totalEarned: 0, clickPower: 1, autoRate: 0, upgrades: {} });
+      setData({
+        score: 0,
+        totalEarned: 0,
+        clickPower: 1,
+        autoRate: 0,
+        upgrades: {},
+      });
       return;
     }
 
@@ -85,9 +92,12 @@ export function useGameState(userId: string | null) {
       setLoaded(true);
     })();
 
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [userId]);
 
+  // Auto-production tick
   useEffect(() => {
     if (!userId || !loaded) return;
     const interval = setInterval(() => {
@@ -95,12 +105,17 @@ export function useGameState(userId: string | null) {
         if (prev.autoRate <= 0) return prev;
         const gain = prev.autoRate * (AUTO_TICK_MS / 1000);
         dirtyRef.current = true;
-        return { ...prev, score: prev.score + gain, totalEarned: prev.totalEarned + gain };
+        return {
+          ...prev,
+          score: prev.score + gain,
+          totalEarned: prev.totalEarned + gain,
+        };
       });
     }, AUTO_TICK_MS);
     return () => clearInterval(interval);
   }, [userId, loaded]);
 
+  // Auto-save to DB periodically
   useEffect(() => {
     if (!userId || !loaded) return;
     const interval = setInterval(() => {
@@ -111,6 +126,7 @@ export function useGameState(userId: string | null) {
     return () => clearInterval(interval);
   }, [userId, loaded]);
 
+  // Save on page hide / unload (mobile + desktop)
   useEffect(() => {
     if (!userId || !loaded) return;
 
@@ -140,7 +156,11 @@ export function useGameState(userId: string | null) {
   const click = useCallback(() => {
     setData((prev) => {
       dirtyRef.current = true;
-      return { ...prev, score: prev.score + prev.clickPower, totalEarned: prev.totalEarned + prev.clickPower };
+      return {
+        ...prev,
+        score: prev.score + prev.clickPower,
+        totalEarned: prev.totalEarned + prev.clickPower,
+      };
     });
   }, []);
 
@@ -156,7 +176,13 @@ export function useGameState(userId: string | null) {
       const stats = computeStats(newUpgrades);
       success = true;
       dirtyRef.current = true;
-      return { ...prev, score: prev.score - cost, upgrades: newUpgrades, clickPower: stats.clickPower, autoRate: stats.autoRate };
+      return {
+        ...prev,
+        score: prev.score - cost,
+        upgrades: newUpgrades,
+        clickPower: stats.clickPower,
+        autoRate: stats.autoRate,
+      };
     });
     return success;
   }, []);

@@ -12,6 +12,7 @@ export type UpgradeDef = {
 };
 
 export const UPGRADES: UpgradeDef[] = [
+  // Click upgrades
   {
     id: 'sharp_cursor',
     name: 'Sharp Cursor',
@@ -60,6 +61,8 @@ export const UPGRADES: UpgradeDef[] = [
     effectLabel: '+50 click power',
     maxLevel: 25,
   },
+
+  // Auto-producer upgrades
   {
     id: 'grandma',
     name: 'Grandma',

@@ -40,23 +40,32 @@ export function CookieClicker() {
 
   return (
     <div className="bg-white rounded-2xl shadow-lg border border-orange-100 p-8 flex flex-col items-center select-none">
+      {/* Score display */}
       <div className="text-center mb-6">
-        <div className="text-5xl font-extrabold text-gray-800 tabular-nums">{formatNum(data.score)}</div>
+        <div className="text-5xl font-extrabold text-gray-800 tabular-nums">
+          {formatNum(data.score)}
+        </div>
         <div className="text-sm text-gray-400 font-medium mt-1">cookies</div>
       </div>
 
+      {/* Stats */}
       <div className="flex gap-6 mb-8 text-center">
         <div>
-          <div className="text-lg font-bold text-orange-600 tabular-nums">+{data.clickPower}</div>
+          <div className="text-lg font-bold text-orange-600 tabular-nums">
+            +{data.clickPower}
+          </div>
           <div className="text-xs text-gray-400">per click</div>
         </div>
         <div className="w-px bg-gray-100" />
         <div>
-          <div className="text-lg font-bold text-orange-600 tabular-nums">{data.autoRate.toFixed(0)}/s</div>
+          <div className="text-lg font-bold text-orange-600 tabular-nums">
+            {data.autoRate.toFixed(0)}/s
+          </div>
           <div className="text-xs text-gray-400">auto</div>
         </div>
       </div>
 
+      {/* Cookie button */}
       <div className="relative">
         <button
           onClick={handleClick}
@@ -69,11 +78,16 @@ export function CookieClicker() {
           />
         </button>
 
+        {/* Floating numbers */}
         {floaters.map((f) => (
           <span
             key={f.id}
             className="absolute pointer-events-none font-bold text-orange-600 text-lg"
-            style={{ left: f.x, top: f.y, animation: 'floatUp 0.9s ease-out forwards' }}
+            style={{
+              left: f.x,
+              top: f.y,
+              animation: 'floatUp 0.9s ease-out forwards',
+            }}
           >
             +{f.value}
           </span>

@@ -45,6 +45,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
+  // Load or create profile when session changes
   useEffect(() => {
     if (!session?.user) {
       setProfile(null);

@@ -54,17 +54,27 @@ export function AuthScreen() {
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-orange-100">
           <div className="flex gap-2 mb-6 p-1 bg-gray-100 rounded-xl">
             <button
-              onClick={() => { setMode('register'); setError(null); }}
+              onClick={() => {
+                setMode('register');
+                setError(null);
+              }}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg font-semibold text-sm transition-all ${
-                mode === 'register' ? 'bg-white text-orange-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                mode === 'register'
+                  ? 'bg-white text-orange-600 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
               }`}
             >
               <UserPlus className="w-4 h-4" /> Register
             </button>
             <button
-              onClick={() => { setMode('login'); setError(null); }}
+              onClick={() => {
+                setMode('login');
+                setError(null);
+              }}
               className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg font-semibold text-sm transition-all ${
-                mode === 'login' ? 'bg-white text-orange-600 shadow-sm' : 'text-gray-500 hover:text-gray-700'
+                mode === 'login'
+                  ? 'bg-white text-orange-600 shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
               }`}
             >
               <LogIn className="w-4 h-4" /> Log In
@@ -74,7 +84,9 @@ export function AuthScreen() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === 'register' && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Username</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                  Username
+                </label>
                 <input
                   type="text"
                   value={username}
@@ -84,12 +96,16 @@ export function AuthScreen() {
                   maxLength={20}
                   required
                 />
-                <p className="text-xs text-gray-400 mt-1">Case-insensitive — "John" and "john" are the same.</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  Case-insensitive — "John" and "john" are the same.
+                </p>
               </div>
             )}
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email
+              </label>
               <input
                 type="email"
                 value={email}
@@ -101,7 +117,9 @@ export function AuthScreen() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Password
+              </label>
               <input
                 type="password"
                 value={password}
@@ -113,7 +131,9 @@ export function AuthScreen() {
             </div>
 
             {error && (
-              <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">{error}</div>
+              <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                {error}
+              </div>
             )}
 
             <button
@@ -124,9 +144,13 @@ export function AuthScreen() {
               {busy ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
               ) : mode === 'register' ? (
-                <><UserPlus className="w-5 h-5" /> Create Account</>
+                <>
+                  <UserPlus className="w-5 h-5" /> Create Account
+                </>
               ) : (
-                <><LogIn className="w-5 h-5" /> Log In</>
+                <>
+                  <LogIn className="w-5 h-5" /> Log In
+                </>
               )}
             </button>
           </form>

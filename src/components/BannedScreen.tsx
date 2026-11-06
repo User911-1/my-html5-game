@@ -14,7 +14,9 @@ export function BannedScreen() {
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-red-400 to-red-600 shadow-lg mb-6">
           <ShieldX className="w-10 h-10 text-white" />
         </div>
-        <h1 className="text-3xl font-extrabold text-gray-800 mb-3">You have been banned</h1>
+        <h1 className="text-3xl font-extrabold text-gray-800 mb-3">
+          You have been banned
+        </h1>
         <p className="text-gray-500 mb-6">
           {isPermanent
             ? 'This is a permanent ban. You can no longer play Cookie Clicker on this account.'
